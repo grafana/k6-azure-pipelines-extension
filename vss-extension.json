@@ -1,0 +1,48 @@
+{
+  "manifestVersion": 1,
+  "id": "k6-load-test",
+  "name": "k6 Load Testing",
+  "version": "0.0.58",
+  "publisher": "k6",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "description": "A modern load testing tool built for developer happiness.",
+  "categories": ["Azure Pipelines"],
+  "icons": {
+    "default": "images/extension-icon.png"
+  },
+  "public": true,
+  "galleryFlags": ["Preview"],
+  "contributions": [
+    {
+      "id": "custom-build-release-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "task"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "task",
+      "packagePath": "task"
+    },
+    {
+      "path": "node_modules",
+      "packagePath": "task/node_modules"
+    },
+    {
+      "path": "src/task.json",
+      "packagePath": "task/task.json"
+    }
+  ],
+  "content": {
+    "details": {
+      "path": "README.md"
+    }
+  }
+}

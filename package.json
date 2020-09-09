@@ -1,0 +1,39 @@
+{
+  "name": "azure-pipelines-task",
+  "version": "1.0.1",
+  "main": "task.js",
+  "author": "Simon Aronsson <simme@k6.io>",
+  "license": "MIT",
+  "scripts": {
+    "pretest": "yarn build && cp ./src/task.json ./task/task.json",
+    "test": "node ./task/task.js",
+    "prebuild": "yarn install",
+    "lint": "eslint ./src/*.ts",
+    "lint:fix": "eslint ./src/*.ts --fix",
+    "build": "tsc",
+    "bundle": "tfx extension create --manifest-globs vss-extension.json",
+    "prerelease": "yarn build && rm -rf node_modules && yarn install --production",
+    "release": "tfx extension publish --token $AZURE_MARKETPLACE_TOKEN --rev-version",
+    "postrelease": "yarn install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
+  "dependencies": {
+    "azure-pipelines-task-lib": "^2.9.3"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.1",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.4",
+    "@types/node": "^13.11.1",
+    "@types/q": "^1.5.2",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.2",
+    "typescript": "^3.8.3"
+  }
+}
