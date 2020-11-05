@@ -22,7 +22,8 @@
     }
   },
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.9.3"
+    "azure-pipelines-task-lib": "^2.9.3",
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^6.10.1",

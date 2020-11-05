@@ -4,3 +4,5 @@ node_modules
 .taskkey
 task
 yarn-error.log
+go.mod
+go.sum
