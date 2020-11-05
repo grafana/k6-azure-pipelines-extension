@@ -9,8 +9,8 @@
   "author": "Load Impact / k6",
   "version": {
     "Major": 0,
-    "Minor": 4,
-    "Patch": 3
+    "Minor": 5,
+    "Patch": 1
   },
   "visibility": [
     "Build",

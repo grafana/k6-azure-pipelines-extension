@@ -7,6 +7,12 @@ import tr = require('azure-pipelines-task-lib/toolrunner');
 import { existsSync } from 'fs';
 
 const args = getArgs();
+const env = {
+  ...process.env,
+  GO11MODULE: 'on',
+};
+
+const opts = { env, failOnStdErr: false } as any;
 
 function init() {
   tl.setResourcePath(path.join(__dirname, 'task.json'));
@@ -33,12 +39,7 @@ async function install() {
   );
 
   console.log("Making sure it's installed");
-  const env = {
-    GO11MODULE: 'on',
-    HOME: __dirname,
-  };
 
-  const opts = { env, failOnStdErr: false } as any;
   if (existsSync('go.mod')) {
     console.log('Go mod file present');
   } else {
@@ -46,7 +47,8 @@ async function install() {
     await tl.tool('go').arg(['mod', 'init', 'k6.io/void']).exec(opts);
   }
 
-  tl.tool('go')
+  await tl
+    .tool('go')
     .arg(['get', '-u', `github.com/loadimpact/k6@${tagName}`])
     .exec(opts);
 }
@@ -55,6 +57,13 @@ async function run() {
   try {
     init();
     await install();
+
+    await tl
+      .tool('go')
+      .arg('run')
+      .arg('github.com/loadimpact/k6')
+      .line('version')
+      .exec(opts);
 
     const go = tl
       .tool('go')
@@ -70,6 +79,7 @@ async function run() {
     console.log('Starting k6');
 
     await go.exec({
+      env,
       failOnStdErr: false,
       cwd: args.path,
     } as tr.IExecOptions);
