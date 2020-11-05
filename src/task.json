@@ -10,12 +10,21 @@
   "version": {
     "Major": 0,
     "Minor": 4,
-    "Patch": 2
+    "Patch": 3
   },
-  "visibility": ["Build", "Release"],
-  "runsOn": ["Agent", "DeploymentGroup"],
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "runsOn": [
+    "Agent",
+    "DeploymentGroup"
+  ],
   "instanceNameFormat": "Run $(filename) with k6",
-  "demands": ["Go", "Python"],
+  "demands": [
+    "Go",
+    "Python"
+  ],
   "inputs": [
     {
       "name": "cloud",
