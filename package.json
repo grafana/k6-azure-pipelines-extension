@@ -12,7 +12,7 @@
     "lint:fix": "eslint ./src/*.ts --fix",
     "build": "tsc",
     "bundle": "tfx extension create --manifest-globs vss-extension.json",
-    "prerelease": "yarn build && rm -rf node_modules && yarn install --production",
+    "prerelease": "yarn build && rm -rf node_modules && yarn install --production && cp ./src/task.json ./task/task.json",
     "release": "tfx extension publish --token $AZURE_MARKETPLACE_TOKEN --rev-version",
     "postrelease": "yarn install"
   },
@@ -22,20 +22,30 @@
     }
   },
   "dependencies": {
+    "@types/adm-zip": "^0.4.33",
+    "@types/decompress": "^4.2.3",
+    "@types/node-fetch": "^2.5.7",
+    "@types/tar": "^4.0.4",
+    "@types/unzipper": "^0.10.3",
+    "adm-zip": "^0.5.1",
     "azure-pipelines-task-lib": "^2.9.3",
-    "isomorphic-fetch": "^3.0.0"
+    "decompress": "^4.2.1",
+    "isomorphic-fetch": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "tar": "^6.0.5",
+    "unzipper": "^0.10.11"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^6.10.1",
-    "husky": "^4.2.5",
-    "prettier": "^2.0.4",
     "@types/node": "^13.11.1",
     "@types/q": "^1.5.2",
     "@typescript-eslint/eslint-plugin": "^2.28.0",
     "@typescript-eslint/parser": "^2.28.0",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
-    "typescript": "^3.8.3",
-    "tfx-cli": "^0.8.3"
+    "husky": "^4.2.5",
+    "prettier": "^2.0.4",
+    "tfx-cli": "^0.8.3",
+    "typescript": "^3.8.3"
   }
 }
