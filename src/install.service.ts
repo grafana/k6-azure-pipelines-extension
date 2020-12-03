@@ -31,11 +31,14 @@ export function isInstalled() {
     console.log('k6 found using which');
     return true;
   } catch {
-    const present = existsSync(platform === 'win32' ? 'k6.exe' : 'k6');
-    if (present) {
-      console.log('k6 found in the project root');
-      return true;
+    try {
+      const present = existsSync(platform === 'win32' ? 'k6.exe' : 'k6');
+      if (present) {
+        console.log('k6 found in the project root');
+        return true;
+      }
+    } catch {
+      return false;
     }
   }
-  return false;
 }
