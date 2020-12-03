@@ -20,7 +20,7 @@
     "copy": {
       "darwin": "cp ./src/task.json ./task/task.json",
       "linux": "cp ./src/task.json ./task/task.json",
-      "win32": "copy ./src/task.json ./task/task.json"
+      "win32": "copy .\\src\\task.json .\\task\\task.json"
     }
   },
   "husky": {

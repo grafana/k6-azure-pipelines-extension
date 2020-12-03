@@ -15,7 +15,6 @@ import { exit } from 'process';
 const args = getArgs();
 const env = {
   ...process.env,
-  PATH: __dirname + ':' + process.env.PATH,
   GO11MODULE: 'on',
 };
 
@@ -34,15 +33,24 @@ async function run() {
   }
 
   try {
-    const go = tl.tool('k6').arg(args.executionMode).arg(args.filename);
+    
+    let executor
+    
+    if (os.platform() === 'win32') {
+      executor = tl.tool('cmd').arg('/c').arg('k6')
+    } else {
+      executor = tl.tool('k6'); 
+    }
+
+    executor.arg(args.executionMode).arg(args.filename)
 
     if (args.additional) {
-      go.line(args.additional);
+      executor.line(args.additional);
     }
     // eslint-disable-next-line no-console
     console.log('Starting k6');
 
-    await go.exec({
+    await executor.exec({
       env,
       failOnStdErr: false,
       cwd: args.path,

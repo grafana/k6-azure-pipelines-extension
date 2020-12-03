@@ -30,7 +30,7 @@ export async function downloadAndUnpack(
     fileStream.on('finish', resolve);
   });
 
-  decompress(fileName, '.', {
+  await decompress(fileName, '.', {
     filter: (file) => file.path.includes('/k6'),
     map: (file) => {
       file.path = getFileName(platform);
