@@ -16,7 +16,7 @@ const args = getArgs();
 const env = {
   ...process.env,
   GO11MODULE: 'on',
-};
+} as any;
 
 const opts = { env, failOnStdErr: false } as any;
 
@@ -28,21 +28,20 @@ function init() {
 
 async function run() {
   init();
-  if (!isInstalled()) {
+  if (!(await isInstalled())) {
     await install();
   }
-
   try {
-    
-    let executor
-    
+    let executor;
+
     if (os.platform() === 'win32') {
-      executor = tl.tool('cmd').arg('/c').arg('k6')
+      executor = tl.tool('cmd').arg('/c').arg('k6');
     } else {
-      executor = tl.tool('k6'); 
+      process.env.PATH = `${args.path}:${process.env.PATH}`;
+      executor = tl.tool('k6');
     }
 
-    executor.arg(args.executionMode).arg(args.filename)
+    executor.arg(args.executionMode).arg(args.filename);
 
     if (args.additional) {
       executor.line(args.additional);

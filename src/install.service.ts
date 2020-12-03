@@ -24,21 +24,18 @@ function extractFileNameFromDownloadUrl(downloadUrl: string) {
   return fileName;
 }
 
-export function isInstalled() {
+export async function isInstalled() {
   const platform = os.platform();
   try {
-    tl.tool('k6').exec({ silent: true });
+    await tl.tool('k6').exec({ silent: true });
     console.log('k6 found using which');
     return true;
   } catch {
-    try {
-      const present = existsSync(platform === 'win32' ? 'k6.exe' : 'k6');
-      if (present) {
-        console.log('k6 found in the project root');
-        return true;
-      }
-    } catch {
-      return false;
+    const present = existsSync(platform === 'win32' ? 'k6.exe' : 'k6');
+    if (present) {
+      console.log('k6 found in the project root');
+      return true;
     }
+    return false;
   }
 }
