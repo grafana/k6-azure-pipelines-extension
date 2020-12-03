@@ -34,10 +34,7 @@ async function run() {
   }
 
   try {
-    const go = tl
-      .tool(os.platform() == 'win32' ? 'k6.exe' : 'k6')
-      .arg(args.executionMode)
-      .arg(args.filename);
+    const go = tl.tool('k6').arg(args.executionMode).arg(args.filename);
 
     if (args.additional) {
       go.line(args.additional);
