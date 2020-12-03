@@ -36,7 +36,7 @@ export async function downloadAndUnpack(
       file.path = getFileName(platform);
       return file;
     },
-  }).then((m) => console.log(m));
+  });
 }
 function getFileName(platform: string): string {
   return platform == 'win32' ? 'k6.exe' : 'k6';

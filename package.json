@@ -5,7 +5,7 @@
   "author": "Simon Aronsson <simme@k6.io>",
   "license": "MIT",
   "scripts": {
-    "pretest": "yarn build && cp ./src/task.json ./task/task.json",
+    "pretest": "yarn build && cross-os copy",
     "test": "node ./task/task.js",
     "prebuild": "yarn install",
     "lint": "eslint ./src/*.ts",
@@ -15,6 +15,13 @@
     "prerelease": "yarn build && rm -rf node_modules && yarn install --production && cp ./src/task.json ./task/task.json",
     "release": "tfx extension publish --token $AZURE_MARKETPLACE_TOKEN --rev-version",
     "postrelease": "yarn install"
+  },
+  "cross-os": {
+    "copy": {
+      "darwin": "cp ./src/task.json ./task/task.json",
+      "linux": "cp ./src/task.json ./task/task.json",
+      "win32": "copy ./src/task.json ./task/task.json"
+    }
   },
   "husky": {
     "hooks": {
@@ -29,6 +36,7 @@
     "@types/unzipper": "^0.10.3",
     "adm-zip": "^0.5.1",
     "azure-pipelines-task-lib": "^2.9.3",
+    "cross-os": "^1.3.0",
     "decompress": "^4.2.1",
     "isomorphic-fetch": "^3.0.0",
     "node-fetch": "^2.6.1",

@@ -15,6 +15,7 @@ import { exit } from 'process';
 const args = getArgs();
 const env = {
   ...process.env,
+  PATH: __dirname + ':' + process.env.PATH,
   GO11MODULE: 'on',
 };
 
@@ -32,42 +33,30 @@ async function run() {
     await install();
   }
 
-  // try {
-  //   init();
-  //   await install();
+  try {
+    const go = tl
+      .tool(os.platform() == 'win32' ? 'k6.exe' : 'k6')
+      .arg(args.executionMode)
+      .arg(args.filename);
 
-  //   await tl
-  //     .tool('go')
-  //     .arg('run')
-  //     .arg('github.com/loadimpact/k6')
-  //     .line('version')
-  //     .exec(opts);
+    if (args.additional) {
+      go.line(args.additional);
+    }
+    // eslint-disable-next-line no-console
+    console.log('Starting k6');
 
-  //   const go = tl
-  //     .tool('go')
-  //     .arg('run')
-  //     .arg('github.com/loadimpact/k6')
-  //     .arg(args.executionMode)
-  //     .arg(args.filename);
+    await go.exec({
+      env,
+      failOnStdErr: false,
+      cwd: args.path,
+    } as tr.IExecOptions);
 
-  //   if (args.additional) {
-  //     go.line(args.additional);
-  //   }
-  //   // eslint-disable-next-line no-console
-  //   console.log('Starting k6');
-
-  //   await go.exec({
-  //     env,
-  //     failOnStdErr: false,
-  //     cwd: args.path,
-  //   } as tr.IExecOptions);
-
-  //   tl.setResult(tl.TaskResult.Succeeded, '');
-  // } catch (e) {
-  //   // eslint-disable-next-line no-console
-  //   console.log(e);
-  //   tl.setResult(tl.TaskResult.Failed, e.message);
-  // }
+    tl.setResult(tl.TaskResult.Succeeded, '');
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(e);
+    tl.setResult(tl.TaskResult.Failed, e.message);
+  }
 }
 
 run();

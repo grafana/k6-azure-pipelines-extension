@@ -34,6 +34,8 @@ export function isInstalled() {
     const present = existsSync(platform === 'win32' ? 'k6.exe' : 'k6');
     if (present) {
       console.log('k6 found in the project root');
+      return true;
     }
   }
+  return false;
 }
