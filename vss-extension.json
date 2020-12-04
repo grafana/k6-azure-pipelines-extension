@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "k6-load-test",
   "name": "k6 Load Testing",
-  "version": "0.0.71",
+  "version": "0.7.0",
   "publisher": "k6",
   "targets": [
     {

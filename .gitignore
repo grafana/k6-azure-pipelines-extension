@@ -6,3 +6,5 @@ task
 yarn-error.log
 go.mod
 go.sum
+k6
+k6-v*
