@@ -1,84 +1,55 @@
 import * as path from 'path';
 import { getArgs } from './args';
-import 'isomorphic-fetch';
+import fetch from 'node-fetch';
 import tl = require('azure-pipelines-task-lib/task');
 // eslint-disable-next-line no-unused-vars
 import tr = require('azure-pipelines-task-lib/toolrunner');
 import { existsSync } from 'fs';
+import decompress from 'decompress';
+import { install, isInstalled } from './install.service';
+
+import os from 'os';
+import fs from 'fs';
+import { exit } from 'process';
 
 const args = getArgs();
 const env = {
   ...process.env,
   GO11MODULE: 'on',
-};
+} as any;
 
 const opts = { env, failOnStdErr: false } as any;
 
 function init() {
   tl.setResourcePath(path.join(__dirname, 'task.json'));
   const token = tl.getVariable('K6_CLOUD_TOKEN');
-  process.env.K6_CLOUD_TOKEN = token;
-}
-
-async function install() {
-  const url = 'https://api.github.com/repos/loadimpact/k6/releases/latest';
-  let tagName;
-
-  await fetch(url)
-    .then((r) => r.json())
-    .then((r) => (tagName = r.tag_name))
-    .catch(() =>
-      console.log('Could not fetch the latest release version from GitHub.')
-    );
-
-  tagName = tagName || 'latest';
-  console.log(
-    tagName === 'latest'
-      ? "Falling back to using 'latest'."
-      : "Latest release is '" + tagName + "'"
-  );
-
-  console.log("Making sure it's installed");
-
-  if (existsSync('go.mod')) {
-    console.log('Go mod file present');
-  } else {
-    console.log('Initializing go mod file');
-    await tl.tool('go').arg(['mod', 'init', 'k6.io/void']).exec(opts);
-  }
-
-  await tl
-    .tool('go')
-    .arg(['get', '-u', `github.com/loadimpact/k6@${tagName}`])
-    .exec(opts);
+  (env as any).K6_CLOUD_TOKEN = token;
 }
 
 async function run() {
-  try {
-    init();
+  init();
+  if (!(await isInstalled())) {
     await install();
+  }
+  try {
+    let executor;
 
-    await tl
-      .tool('go')
-      .arg('run')
-      .arg('github.com/loadimpact/k6')
-      .line('version')
-      .exec(opts);
+    if (os.platform() === 'win32') {
+      executor = tl.tool('cmd').arg('/c').arg('k6');
+    } else {
+      process.env.PATH = `${args.path}:${process.env.PATH}`;
+      executor = tl.tool('k6');
+    }
 
-    const go = tl
-      .tool('go')
-      .arg('run')
-      .arg('github.com/loadimpact/k6')
-      .arg(args.executionMode)
-      .arg(args.filename);
+    executor.arg(args.executionMode).arg(args.filename);
 
     if (args.additional) {
-      go.line(args.additional);
+      executor.line(args.additional);
     }
     // eslint-disable-next-line no-console
     console.log('Starting k6');
 
-    await go.exec({
+    await executor.exec({
       env,
       failOnStdErr: false,
       cwd: args.path,

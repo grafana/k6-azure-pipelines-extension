@@ -12,6 +12,6 @@ export function getArgs() {
     additional: tl.getInput('args', false),
     executionMode: tl.getBoolInput('cloud', false) ? 'cloud' : 'run',
     filename: tl.getInput('filename', false) || 'test.js',
-    path: tl.getVariable('System.DefaultWorkingDirectory') as string,
+    path: tl.getVariable('System.DefaultWorkingDirectory') as string || process.env.INIT_CWD,
   };
 }
