@@ -11,7 +11,8 @@ export async function getDownloadUrl(release: string): Promise<string> {
     .then((r) => r.assets)
     .then((r) => r.filter((x: any) => 
       x.browser_download_url.includes(release) 
-      && !x.browser_download_url.includes('msi')))
+      && (x.browser_download_url.includes('zip')
+      || x.browser_download_url.includes('tar.gz'))))
     .then((r) => r[0].browser_download_url)
     .catch((e) => {
       console.log('Could not determine download link. Exiting.');
