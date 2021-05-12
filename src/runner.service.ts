@@ -16,16 +16,16 @@ export function getRunnerInfo() {
 
 function convertArchAndPlatformToK6Release(runner: string) {
   switch (runner) {
-    case 'win32/x86':
-      return 'win32';
     case 'win32/x64':
-      return 'win64';
+      return 'windows-amd64';
     case 'linux/x64':
-      return 'linux64';
-    case 'linux/x32':
-      return 'linux32';
+      return 'linux-amd64';
+    case 'linux/arm64':
+      return 'linux-arm64';
     case 'darwin/x64':
-      return 'mac';
+      return 'macos-amd64';
+    case 'darwin/arm64':
+      return 'macos-arm64';
     default:
       console.log(
         `${runner} is not a supported infrastructure. ` +
