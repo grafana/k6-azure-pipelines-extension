@@ -2,7 +2,7 @@ import { downloadAndUnpack, getDownloadUrl } from './github.service';
 import { getRunnerInfo } from './runner.service';
 import os from 'os';
 import tl = require('azure-pipelines-task-lib/task');
-import { existsSync } from 'fs';
+import { existsSync, lstatSync } from 'fs';
 
 export async function install() {
   const { release, platform } = getRunnerInfo();
@@ -31,8 +31,10 @@ export async function isInstalled() {
     console.log('k6 found using which');
     return true;
   } catch {
-    const present = existsSync(platform === 'win32' ? 'k6.exe' : 'k6');
-    if (present) {
+    const binaryName = platform === 'win32' ? 'k6.exe' : 'k6';
+    const isPresent = existsSync(binaryName);
+    const isFile = isPresent === true ? lstatSync(binaryName).isFile() : false;
+    if (isPresent && isFile) {
       console.log('k6 found in the project root');
       return true;
     }
