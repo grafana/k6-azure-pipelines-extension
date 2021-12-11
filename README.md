@@ -33,11 +33,6 @@ steps:
       filename: 'YOUR_K6_TEST_SCRIPT.js'
 ```
 
-> ### ⚠️ Custom build agents
->
-> To be able to run the k6 extension on a custom build agent, you need to
-> have both `python` and `go` installed.
-
 ## Inputs
 
 These options are also available from the settings dialog in the pipelines editor.
