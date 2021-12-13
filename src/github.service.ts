@@ -2,7 +2,7 @@ import decompress from 'decompress';
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-const url = 'https://api.github.com/repos/loadimpact/k6/releases/latest';
+const url = 'https://api.github.com/repos/grafana/k6/releases/latest';
 
 export async function getDownloadUrl(release: string): Promise<string> {
   console.log(`Fetching download link for ${release}.`);
