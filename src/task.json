@@ -21,10 +21,6 @@
     "DeploymentGroup"
   ],
   "instanceNameFormat": "Run $(filename) with k6",
-  "demands": [
-    "Go",
-    "Python"
-  ],
   "inputs": [
     {
       "name": "cloud",
