@@ -44,16 +44,16 @@
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
-    "@types/node": "^13.11.1",
-    "@types/q": "^1.5.2",
-    "@typescript-eslint/eslint-plugin": "^2.28.0",
-    "@typescript-eslint/parser": "^2.28.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.2",
-    "husky": "^4.2.5",
-    "prettier": "^2.0.4",
-    "tfx-cli": "^0.8.3",
-    "typescript": "^3.8.3"
+    "@types/node": "13.13.30",
+    "@types/q": "1.5.4",
+    "@typescript-eslint/eslint-plugin": "2.34.0",
+    "@typescript-eslint/parser": "2.34.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-import": "2.22.1",
+    "husky": "4.3.0",
+    "prettier": "2.1.2",
+    "tfx-cli": "0.8.3",
+    "typescript": "3.9.7"
   }
 }
