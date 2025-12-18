@@ -54,6 +54,6 @@
     "husky": "^4.2.5",
     "prettier": "^2.0.4",
     "tfx-cli": "^0.8.3",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.7"
   }
 }
