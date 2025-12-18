@@ -51,7 +51,7 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.20.2",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "prettier": "^2.0.4",
     "tfx-cli": "^0.8.3",
     "typescript": "^3.8.3"
