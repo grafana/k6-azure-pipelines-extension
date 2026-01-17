@@ -40,7 +40,7 @@
     "decompress": "^4.2.1",
     "isomorphic-fetch": "^3.0.0",
     "node-fetch": "^2.6.1",
-    "tar": "^6.1.9",
+    "tar": "^7.0.0",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
