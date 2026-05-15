@@ -338,9 +338,7 @@ azure-devops-node-api@^8.1.1:
     underscore "1.8.3"
 
 azure-pipelines-task-lib@^2.9.3:
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/azure-pipelines-task-lib/-/azure-pipelines-task-lib-2.11.3.tgz#18ced5755cba028a7275000f0083225cf0e9acf3"
-  integrity sha512-gXops6Npkloh7AKPIvptx0KY1kdf1yd+BFdp/ksnbyW7CS3uXzBQXU1Dermr7A895TrOd02PI6hmsL8cBlePNA==
+  version "2.12.2"
   dependencies:
     minimatch "3.0.4"
     mockery "^1.7.0"
